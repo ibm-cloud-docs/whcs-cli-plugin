@@ -1,0 +1,10 @@
+{:navgroup: .navgroup}
+{:topicgroup: .topicgroup}
+
+{: .toc subcollection="whcs-cli-plugin" audience="cli" href="/docs/whcs-cli-plugin" path="whcs-cli-plugin"}
+Watson Health Cognitive Services (WHCS) CLI reference
+
+
+    {: .navgroup id="reference"}
+    annotator-for-clinical-data-acd-v1.md
+    {: .navgroup-end}
