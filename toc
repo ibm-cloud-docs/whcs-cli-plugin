@@ -1,7 +1,7 @@
 {:navgroup: .navgroup}
 {:topicgroup: .topicgroup}
 
-{: .toc subcollection="whcs-cli-plugin" audience="cli" href="/docs/whcs-cli-plugin" path="whcs-cli-plugin"}
+{: .toc subcollection="whcs-cli-plugin" audience="cli" href="/docs/whcs-cli-plugin?topic=whcs-cli-plugin-whcs-annotator-for-clinical-data-cli" path="whcs-cli-plugin"}
 Watson Health Cognitive Services (WHCS) CLI reference
 
 
