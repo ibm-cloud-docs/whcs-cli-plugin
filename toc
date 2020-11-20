@@ -6,5 +6,5 @@ Watson Health Cognitive Services (WHCS) CLI reference
 
 
     {: .navgroup id="reference"}
-    annotator-for-clinical-data-acd-v1.md
+    annotator-for-clinical-data-acd-v1-cli.md
     {: .navgroup-end}
