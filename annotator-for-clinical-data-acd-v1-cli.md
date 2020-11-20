@@ -21,7 +21,7 @@ keywords: whcs annotator for clinical data CLI, whcs acd CLI, whcs annotator for
 {:important: .important}
 {:download: .download}
 
-# WHCS Annotator for Clinical Data V1 CLI (ibmcloud whcs acd)
+# WHCS Annotator for Clinical Data CLI (ibmcloud whcs acd)
 {: #whcs-annotator-for-clinical-data-cli}
 
 The IBM Watson Health Cognitive Services (WHCS) Annotator for Clinical Data (ACD) service is designed to find medical concepts, medical codes, and contextual information in unstructured text. It provides turnkey annotators as well as highly customizable annotators that you can tune specifically for your application needs.
