@@ -46,12 +46,12 @@ You're notified on the command line when updates to the {{site.data.keyword.clou
 
 ## Profiles
 {: #whcs-profiles-cli}
-Managing persisted profiles
+Manage persisted profiles.  A profile contains annotator configuration information that will be applied to the annotators specified in the annotator flow.
 
-### ibmcloud whcs acd profiles (Get list of available persisted profiles)
+### ibmcloud whcs acd profiles
 {: #whcs-cli-profiles-command}
 
-Returns a summary including ID and description of the available persisted profiles.
+Get a list of available persisted profiles.  Returns a summary including ID and description of the available persisted profiles.
 
 ```sh
 ibmcloud whcs acd profiles
@@ -82,10 +82,10 @@ ibmcloud whcs acd profiles --output json
 ```
 {: screen}
 
-### ibmcloud whcs acd profile-create (Persist a new profile)
+### ibmcloud whcs acd profile-create
 {: #whcs-cli-profile-create-command}
 
-This API persists a new profile.  A profile is identified by an ID.  This ID can optionally be specified as part of the request body when invoking `POST /v1/analyze` API.  A profile contains annotator configuration information that will be applied to the annotators specified in the annotator flow.<p>If a caller would choose to have the ID of the new profile generated on their behalf, then in the request body the "id" field of the profile definition should be an empty string ("").  The auto-generated ID would be a normalized form of the "name" field from the profile definition.<p><b>Sample Profile #1</b><br>A profile definition that configures the 'concept_detection' annotator to use the UMLS umls.latest library.<br><pre>{<br>  "id": "acd_profile_cd_umls_latest",<br>  "name": "Profile for the latest Concept Detection UMLS Library",<br>  "description": "Provides configurations for running Concept Detection with the latest UMLS library",<br>  "annotators": [<br>    {<br>      "name": "concept_detection",<br>      "parameters": {<br>         "libraries": ["umls.latest"]<br>       }<br>    }<br>  ]<br>}</pre><p><b>Sample Profile #2</b><br>A profile definition that configures the 'concept_detection' annotator to exclude any annotations where the semantic type does not equal 'neop'.<br><pre>{<br>  "id": "acd_profile_cd_neop_only",<br>  "name": "Profile for Concept Detection neop Semantic Type",<br>  "description": "Concept Detection configuration fitler to exclude annotations where semantic type does not equal 'neop'.",<br>  "annotators": [<br>    {<br>       "name": "concept_detection",<br>       "configurations": [<br>         {<br>           "filter": {<br>             "target": "unstructured.data.concepts",<br>             "condition": {<br>                "type": "match",<br>                "field": "semanticType",<br>                "values": [<br>                   "neop"<br>                 ],<br>                "not": false,<br>                "caseInsensitive": false,<br>                "operator": "equals"<br>              }<br>            }<br>         }<br>       ]<br>    }<br>  ]<br>}</pre>.
+Persist a new profile.  A profile is identified by an ID.  This ID can optionally be specified as part of the request body when invoking `POST /v1/analyze` API.  A profile contains annotator configuration information that will be applied to the annotators specified in the annotator flow.<p>If a caller would choose to have the ID of the new profile generated on their behalf, then in the request body the "id" field of the profile definition should be an empty string ("").  The auto-generated ID would be a normalized form of the "name" field from the profile definition.<p><b>Sample Profile #1</b><br>A profile definition that configures the 'concept_detection' annotator to use the UMLS umls.latest library.<br><pre>{<br>  "id": "acd_profile_cd_umls_latest",<br>  "name": "Profile for the latest Concept Detection UMLS Library",<br>  "description": "Provides configurations for running Concept Detection with the latest UMLS library",<br>  "annotators": [<br>    {<br>      "name": "concept_detection",<br>      "parameters": {<br>         "libraries": ["umls.latest"]<br>       }<br>    }<br>  ]<br>}</pre><p><b>Sample Profile #2</b><br>A profile definition that configures the 'concept_detection' annotator to exclude any annotations where the semantic type does not equal 'neop'.<br><pre>{<br>  "id": "acd_profile_cd_neop_only",<br>  "name": "Profile for Concept Detection neop Semantic Type",<br>  "description": "Concept Detection configuration fitler to exclude annotations where semantic type does not equal 'neop'.",<br>  "annotators": [<br>    {<br>       "name": "concept_detection",<br>       "configurations": [<br>         {<br>           "filter": {<br>             "target": "unstructured.data.concepts",<br>             "condition": {<br>                "type": "match",<br>                "field": "semanticType",<br>                "values": [<br>                   "neop"<br>                 ],<br>                "not": false,<br>                "caseInsensitive": false,<br>                "operator": "equals"<br>              }<br>            }<br>         }<br>       ]<br>    }<br>  ]<br>}</pre>.
 
 ```sh
 ibmcloud whcs acd profile-create [--id ID] [--name NAME] [--description DESCRIPTION] [--published-date PUBLISHED_DATE] [--publish PUBLISH] [--create-profile-version CREATE_PROFILE_VERSION] [--cartridge-id CARTRIDGE_ID] [--annotators ANNOTATORS]
@@ -143,10 +143,10 @@ ibmcloud whcs acd profile-create --id myProfile --annotators "[{\"name\":\"conce
 ```
 {: screen}
 
-### ibmcloud whcs acd profile (Get details of a specific profile)
+### ibmcloud whcs acd profile
 {: #whcs-cli-profile-command}
 
-Using the specified profile ID, retrieves the profile definition.
+Get details of a specific profile.  Using the specified profile ID, retrieves the profile definition.
 
 ```sh
 ibmcloud whcs acd profile --id ID
@@ -372,10 +372,10 @@ ibmcloud whcs acd profile --id wh_acd.ibm_clinical_insights_v1.0_profile --outpu
 ```
 {: screen}
 
-### ibmcloud whcs acd profile-update (Update a persisted profile)
+### ibmcloud whcs acd profile-update
 {: #whcs-cli-profile-update-command}
 
-Using the specified profile ID, updates the profile definition.  This is a complete replacement of the existing profile definition using the JSON object provided in the request body.
+Update a persisted profile.  Using the specified profile ID, update the profile definition.  This is a complete replacement of the existing profile definition using the JSON object provided in the request body.
 
 ```sh
 ibmcloud whcs acd profile-update --id ID [--name NEW_NAME] [--description NEW_DESCRIPTION] [--published-date NEW_PUBLISHED_DATE] [--publish NEW_PUBLISH] [--version NEW_VERSION] [--cartridge-id NEW_CARTRIDGE_ID] [--annotators NEW_ANNOTATORS]
@@ -437,10 +437,10 @@ ibmcloud whcs acd profile-update --id myProfile --annotators "[{\"name\":\"conce
 ```
 {: screen}
 
-### ibmcloud whcs acd profile-delete (Delete a persisted profile)
+### ibmcloud whcs acd profile-delete
 {: #whcs-cli-profile-delete-command}
 
-Using the specified profile ID, deletes the profile from the list of persisted profiles.
+Delete a persisted profile.  Using the specified profile ID, delete the profile from the list of persisted profiles.
 
 ```sh
 ibmcloud whcs acd profile-delete --id ID
@@ -464,12 +464,12 @@ ibmcloud whcs acd profile-delete --id myProfile --output json
 
 ## Flows
 {: #whcs-flows-cli}
-Managing persisted flows
+Manage persisted flows (also know as annotator flows).  A flow definition contains a list of one or more annotators and optionally can include annotator configuration and/or flow sequence.
 
-### ibmcloud whcs acd flows (Get list of available persisted flows)
+### ibmcloud whcs acd flows
 {: #whcs-cli-flows-command}
 
-Returns a summary including ID and description of the available persisted flows.
+Get a list of available persisted flows.  Returns a summary including ID and description of the available persisted flows.
 
 ```sh
 ibmcloud whcs acd flows
@@ -499,10 +499,10 @@ ibmcloud whcs acd flows --output json
 ```
 {: screen}
 
-### ibmcloud whcs acd flow-create (Persist a new flow)
+### ibmcloud whcs acd flow-create
 {: #whcs-cli-flow-create-command}
 
-This API persists a new flow.  A flow is identified by an ID.  This ID can optionally be specified as part of the request body when invoking `POST /v1/analyze` API.  A flow definition contains a list one or more annotators, and optionally can include annotator configuration, a flow ID, and/or flow sequence.<p>If a caller would choose to have the ID of the new flow generated on their behalf, then in the request body the "id" field of the flow definition should be an empty string ("").  The auto-generated ID would be a normalized form of the "name" field from the flow definition.<p><p><b>Sample Flow #1</b><br>A flow definition that includes two annotators.<br><pre>{<br>  "id": "flow_simple",<br>  "name": "flow simple",<br>  "description": "A simple flow with two annotators",<br>  "annotatorFlows": [<br>      {<br>       "flow": {<br>          "elements": [<br>             {<br>               "annotator": {<br>                   "name": "concept_detection"<br>                }<br>             },<br>             {<br>               "annotator": {<br>                   "name": "symptom_disease"<br>                }<br>             }<br>           ],<br>       "async": false<br>        }<br>      }<br>   ]<br>}</pre><p><b>Sample Flow #2</b><br>A flow definition that includes the 'concept_detection' annotator and configuration details for the 'concept_detection' annotator.<br><pre>{<br>  "id": "flow_concept_detection_exclude_non_neop",<br>  "name": "flow concept detection exclude non neop",<br>  "description": "A flow excluding detected concepts that do not have 'neop' semantic type",<br>  "annotatorFlows": [<br>      {<br>       "flow": {<br>          "elements": [<br>             {<br>               "annotator": {<br>                   "name": "concept_detection",<br>                   "configurations": [<br>                      {<br>                        "filter": {<br>                           "target": "unstructured.data.concepts",<br>                           "condition": {<br>                              "type": "match",<br>                              "field": "semanticType",<br>                              "values": [<br>                                 "neop"<br>                                ],<br>                              "not": false,<br>                              "caseInsensitive": false,<br>                              "operator": "equals"<br>                            }<br>                         }<br>                      }<br>                    ]<br>                 }<br>              }<br>         ],<br>       "async": false<br>        }<br>      }<br>   ]<br>}</pre>.
+Persist a new flow.  A flow is identified by an ID.  This ID can optionally be specified as part of the request body when invoking `POST /v1/analyze` API.  A flow definition contains a list of one or more annotators and optionally can include annotator configuration and/or flow sequence.<p>If a caller would choose to have the ID of the new flow generated on their behalf, then in the request body the "id" field of the flow definition should be an empty string ("").  The auto-generated ID would be a normalized form of the "name" field from the flow definition.<p><p><b>Sample Flow #1</b><br>A flow definition that includes two annotators.<br><pre>{<br>  "id": "flow_simple",<br>  "name": "flow simple",<br>  "description": "A simple flow with two annotators",<br>  "annotatorFlows": [<br>      {<br>       "flow": {<br>          "elements": [<br>             {<br>               "annotator": {<br>                   "name": "concept_detection"<br>                }<br>             },<br>             {<br>               "annotator": {<br>                   "name": "symptom_disease"<br>                }<br>             }<br>           ],<br>       "async": false<br>        }<br>      }<br>   ]<br>}</pre><p><b>Sample Flow #2</b><br>A flow definition that includes the 'concept_detection' annotator and configuration details for the 'concept_detection' annotator.<br><pre>{<br>  "id": "flow_concept_detection_exclude_non_neop",<br>  "name": "flow concept detection exclude non neop",<br>  "description": "A flow excluding detected concepts that do not have 'neop' semantic type",<br>  "annotatorFlows": [<br>      {<br>       "flow": {<br>          "elements": [<br>             {<br>               "annotator": {<br>                   "name": "concept_detection",<br>                   "configurations": [<br>                      {<br>                        "filter": {<br>                           "target": "unstructured.data.concepts",<br>                           "condition": {<br>                              "type": "match",<br>                              "field": "semanticType",<br>                              "values": [<br>                                 "neop"<br>                                ],<br>                              "not": false,<br>                              "caseInsensitive": false,<br>                              "operator": "equals"<br>                            }<br>                         }<br>                      }<br>                    ]<br>                 }<br>              }<br>         ],<br>       "async": false<br>        }<br>      }<br>   ]<br>}</pre>.
 
 ```sh
 ibmcloud whcs acd flow-create [--id ID] [--name NAME] [--description DESCRIPTION] [--published-date PUBLISHED_DATE] [--publish PUBLISH] [--create-flow-version CREATE_FLOW_VERSION] [--cartridge-id CARTRIDGE_ID] [--annotator-flows ANNOTATOR_FLOWS]
@@ -564,10 +564,10 @@ ibmcloud whcs acd flow-create --id myFlow --annotator-flows "[{\"flow\":{\"eleme
 ```
 {: screen}
 
-### ibmcloud whcs acd flow (Get details of a specific flow)
+### ibmcloud whcs acd flow
 {: #whcs-cli-flow-command}
 
-Using the specified flow ID, retrieves the flow definition.
+Get details of a specific flow.  Using the specified flow ID, retrieves the flow definition.
 
 ```sh
 ibmcloud whcs acd flow --id ID
@@ -719,10 +719,10 @@ ibmcloud whcs acd flow --id wh_acd.ibm_clinical_insights_v1.0_standard_flow --ou
 ```
 {: screen}
 
-### ibmcloud whcs acd flow-update (Update a persisted flow)
+### ibmcloud whcs acd flow-update
 {: #whcs-cli-flow-update-command}
 
-Using the specified flow ID, updates the persisted flow definition.  This is a complete replacement of the existing flow definition using the JSON object provided in the request body.
+Update a persisted flow.  Using the specified flow ID, update the persisted flow definition.  This is a complete replacement of the existing flow definition using the JSON object provided in the request body.
 
 ```sh
 ibmcloud whcs acd flow-update --id ID [--name NEW_NAME] [--description NEW_DESCRIPTION] [--published-date NEW_PUBLISHED_DATE] [--publish NEW_PUBLISH] [--version NEW_VERSION] [--cartridge-id NEW_CARTRIDGE_ID] [--annotator-flows NEW_ANNOTATOR_FLOWS]
@@ -794,10 +794,10 @@ ibmcloud whcs acd flow-update --id myFlow --annotator-flows "[{\"flow\":{\"eleme
 ```
 {: screen}
 
-### ibmcloud whcs acd flow-delete (Delete a persisted flow)
+### ibmcloud whcs acd flow-delete
 {: #whcs-cli-flow-delete-command}
 
-Using the specified flow ID, deletes the flow from the list of persisted flows.
+Delete a persisted flow.  Using the specified flow ID, delete the flow from the list of persisted flows.
 
 ```sh
 ibmcloud whcs acd flow-delete --id ID
@@ -821,11 +821,12 @@ ibmcloud whcs acd flow-delete --id myFlow --output json
 
 ## ACD
 {: #whcs-acd-cli}
+Detect entities & relations from unstructured data. Get details about the available annotators.
 
-### ibmcloud whcs acd analyze (Detect entities & relations from unstructured data)
+### ibmcloud whcs acd analyze
 {: #whcs-cli-analyze-command}
 
-<p>This API accepts a JSON request model featuring both the unstructured data to be analyzed as well as the desired annotator flow.<p/><p><b>Annotator Chaining</b><br/>Sample request invoking both the concept_detection and symptom_disease annotators asynchronously. This sample request references configurations via a profile id. Profiles define configurations that can be referenced within a request. Profile is optional. A default profile is used if no profile id is available in the annotator flow. The default profile contains the parameters for the concept detection and the attribute detection. An empty profile can be used if absolutely no parameters are attached to any annotators. See [documentation](https://cloud.ibm.com/docs/wh-acd) for more information. </p><pre>{<br/>  "annotatorFlows": [<br/>    {<br/>      "profile" : "default_profile_v1.0", <br/>      "flow": {<br/>        "elements": [<br/>          {<br/>            "annotator": {<br/>              "name": "concept_detection"<br/>            }<br/>          },<br/>          {<br/>            "annotator": {<br/>              "name": "symptom_disease"<br/>             }<br/>          }<br/>        ],<br/>        "async": false<br/>      }<br/>    }<br/>  ],<br/>  "unstructured": [<br/>    {<br/>      "text": "Patient has lung cancer, but did not smoke. She may consider chemotherapy as part of a treatment plan."<br/>    }<br/>  ]<br/>}<br/></pre><p><b>Annotation Filtering</b><br/>Sample request invoking concept_detection with a filter defined to exclude any annotations detected from concept_detection where the semanticType field does not equal "neop".</p><pre>{<br/>  "annotatorFlows": [<br/>    {<br/>      "flow": {<br/>        "elements": [<br/>          {<br/>            "annotator": {<br/>              "name": "concept_detection",<br/>              "configurations": [<br/>                {<br/>                  "filter": {<br/>                     "target": "unstructured.data.concepts",<br/>                     "condition": {<br/>                        "type": "match",<br/>                        "field": "semanticType",<br/>                        "values": [<br/>                           "neop"<br/>                         ],<br/>                        "not": false,<br/>                        "caseInsensitive": false,<br/>                        "operator": "equals"<br/>                     }<br/>                  }<br/>                }<br/>              ]<br/>            }<br/>          }<br/>        ],<br/>       "async": false<br/>      }<br/>    }<br/>  ],<br/>  "unstructured": [<br/>    {<br/>      "text": "Patient has lung cancer, but did not smoke. She may consider chemotherapy as part of a treatment plan."<br/>    }<br/>  ]<br/>}<br/></pre><p><b>Annotators that support annotation filtering:</b> allergy, bathing_assistance, cancer, concept_detection, dressing_assistance, eating_assistance, ejection_fraction, lab_value, medication, named_entities, procedure, seeing_assistance, smoking, symptom_disease, toileting_assistance, walking_assistance.</p><hr/><p><b>Annotation Augmentation</b><br/>Sample request invoking the cancer annotator and providing a whitelist entry for a new custom surface form: "lungcancer".</p><pre>{<br/> "annotatorFlows": [<br/>    {<br/>     "flow": {<br/>       "elements": [<br/>          {<br/>           "annotator": {<br/>             "name": "cancer",<br/>             "configurations": [<br/>                {<br/>                 "whitelist": {<br/>                   "name": "cancer",<br/>                   "entries": [<br/>                      {<br/>                  "surfaceForms": [<br/>                   "lungcancer"<br/>                ],<br/>               "features": {<br/>                   "normalizedName": "lung cancer",<br/>                   "hccCode": "9",<br/>                   "icd10Code": "C34.9",<br/>                   "ccsCode": "19",<br/>                   "icd9Code": "162.9",<br/>                   "conceptId": "93880001"<br/>                }<br/>                      }<br/>                    ]<br/>                  }<br/>                }<br/>              ]<br/>            }<br/>          }<br/>        ],<br/>       "async": false<br/>      }<br/>    }<br/>  ],<br/> "unstructured": [<br/>    {<br/>     "text": "The patient was diagnosed with lungcancer, on Dec 23, 2011."<br/>    }<br/>  ]<br/>}<br/></pre><b>Annotators that support annotation augmentation:</b> allergy, bathing_assistance, cancer, dressing_assistance, eating_assistance, ejection_fraction, lab_value, medication, named_entities, procedure, seeing_assistance, smoking, symptom_disease, toileting_assistance, walking_assistance.<br/>.
+Detect entities and relations from unstructured data.  This API accepts a JSON request model featuring both the unstructured data to be analyzed as well as the desired annotator flow definition.<p><b>Annotator Chaining</b><br/>Sample request invoking both the concept_detection and symptom_disease annotators asynchronously. This sample request references configurations via a profile id. Profiles define configurations that can be referenced within a request. Profile is optional. A default profile is used if no profile id is available in the annotator flow. The default profile contains the parameters for the concept detection and the attribute detection. An empty profile can be used if absolutely no parameters are attached to any annotators. See [documentation](https://cloud.ibm.com/docs/wh-acd) for more information. </p><pre>{<br/>  "annotatorFlows": [<br/>    {<br/>      "profile" : "default_profile_v1.0", <br/>      "flow": {<br/>        "elements": [<br/>          {<br/>            "annotator": {<br/>              "name": "concept_detection"<br/>            }<br/>          },<br/>          {<br/>            "annotator": {<br/>              "name": "symptom_disease"<br/>             }<br/>          }<br/>        ],<br/>        "async": false<br/>      }<br/>    }<br/>  ],<br/>  "unstructured": [<br/>    {<br/>      "text": "Patient has lung cancer, but did not smoke. She may consider chemotherapy as part of a treatment plan."<br/>    }<br/>  ]<br/>}<br/></pre><p><b>Annotation Filtering</b><br/>Sample request invoking concept_detection with a filter defined to exclude any annotations detected from concept_detection where the semanticType field does not equal "neop".</p><pre>{<br/>  "annotatorFlows": [<br/>    {<br/>      "flow": {<br/>        "elements": [<br/>          {<br/>            "annotator": {<br/>              "name": "concept_detection",<br/>              "configurations": [<br/>                {<br/>                  "filter": {<br/>                     "target": "unstructured.data.concepts",<br/>                     "condition": {<br/>                        "type": "match",<br/>                        "field": "semanticType",<br/>                        "values": [<br/>                           "neop"<br/>                         ],<br/>                        "not": false,<br/>                        "caseInsensitive": false,<br/>                        "operator": "equals"<br/>                     }<br/>                  }<br/>                }<br/>              ]<br/>            }<br/>          }<br/>        ],<br/>       "async": false<br/>      }<br/>    }<br/>  ],<br/>  "unstructured": [<br/>    {<br/>      "text": "Patient has lung cancer, but did not smoke. She may consider chemotherapy as part of a treatment plan."<br/>    }<br/>  ]<br/>}<br/></pre><p><b>Annotators that support annotation filtering:</b> allergy, bathing_assistance, cancer, concept_detection, dressing_assistance, eating_assistance, ejection_fraction, lab_value, medication, named_entities, procedure, seeing_assistance, smoking, symptom_disease, toileting_assistance, walking_assistance.</p><hr/><p><b>Annotation Augmentation</b><br/>Sample request invoking the cancer annotator and providing a whitelist entry for a new custom surface form: "lungcancer".</p><pre>{<br/> "annotatorFlows": [<br/>    {<br/>     "flow": {<br/>       "elements": [<br/>          {<br/>           "annotator": {<br/>             "name": "cancer",<br/>             "configurations": [<br/>                {<br/>                 "whitelist": {<br/>                   "name": "cancer",<br/>                   "entries": [<br/>                      {<br/>                  "surfaceForms": [<br/>                   "lungcancer"<br/>                ],<br/>               "features": {<br/>                   "normalizedName": "lung cancer",<br/>                   "hccCode": "9",<br/>                   "icd10Code": "C34.9",<br/>                   "ccsCode": "19",<br/>                   "icd9Code": "162.9",<br/>                   "conceptId": "93880001"<br/>                }<br/>                      }<br/>                    ]<br/>                  }<br/>                }<br/>              ]<br/>            }<br/>          }<br/>        ],<br/>       "async": false<br/>      }<br/>    }<br/>  ],<br/> "unstructured": [<br/>    {<br/>     "text": "The patient was diagnosed with lungcancer, on Dec 23, 2011."<br/>    }<br/>  ]<br/>}<br/></pre><b>Annotators that support annotation augmentation:</b> allergy, bathing_assistance, cancer, dressing_assistance, eating_assistance, ejection_fraction, lab_value, medication, named_entities, procedure, seeing_assistance, smoking, symptom_disease, toileting_assistance, walking_assistance.<br/>.
 
 ```sh
 ibmcloud whcs acd analyze [--unstructured UNSTRUCTURED] [--annotator-flows ANNOTATOR_FLOWS] [--debug-text-restore DEBUG_TEXT_RESTORE] [--return-analyzed-text RETURN_ANALYZED_TEXT]
@@ -841,7 +842,7 @@ ibmcloud whcs acd analyze [--unstructured UNSTRUCTURED] [--annotator-flows ANNOT
 <dt>--annotator-flows (array)</dt>
 <dd></dd>
 <dt>--debug-text-restore (boolean)</dt>
-<dd>If true, any ReplaceTextChange annotations will be left in the container and the modified text before restoring to original form will stored in the metadata that is returned.  Otherwise, these annotations and modified text will be removed from the container.</dd>
+<dd>If true, any ReplaceTextChange annotations will be left in the container and the modified text, before restoring to original form, will be returned in the metadata.  Otherwise, these annotations and modified text will be removed from the container.</dd>
 <dd>The default value is `false`.</dd>
 <dt>--return-analyzed-text (boolean)</dt>
 <dd>Set this to true to show the analyzed text in the response.</dd>
@@ -1030,9 +1031,10 @@ ibmcloud whcs acd analyze --annotator-flows "[{\"flow\":{\"elements\":[{\"annota
 ```
 {: screen}
 
-### ibmcloud whcs acd analyze-with-flow (analyze with a pre-specified flow)
+### ibmcloud whcs acd analyze-with-flow
 {: #whcs-cli-analyze-with-flow-command}
 
+Detect entities and relations from unstructured text using a persisted flow. This API accepts the unstructured data to be analyzed and the ID of a persisted flow definition.
 <p>This API accepts a flow identifier as well as a <emph>TEXT</emph> or a <emph>JSON</emph> request model featuring the unstructured text to be analyzed. <p/><p><b>JSON request model with unstructured text </b></p><pre>{<br/>  "unstructured": [<br/>    {<br/>      "text": "Patient has lung cancer, but did not smoke. She may consider chemotherapy as part of a treatment plan."<br/>    }<br/>  ]<br/>}<br/></pre><p><b>JSON request model with existing annotations </b><br/></p><pre>{<br> "unstructured": [<br>    {<br>      "text": "Patient will not start on cisplatin 80mg on 1/1/2018. Patient is also diabetic.",<br>      "data": {<br>        "concepts": [<br>          {<br>            "cui": "C0030705",<br>            "preferredName": "Patients",<br>            "semanticType": "podg",<br>            "source": "umls",<br>            "sourceVersion": "2017AA",<br>            "type": "umls.PatientOrDisabledGroup",<br>            "begin": 0,<br>            "end": 7,<br>            "coveredText": "Patient"<br>          }<br> ]<br>      }  <br>    } <br> ]<br>}<br></pre>.
 
 ```sh
@@ -1045,17 +1047,15 @@ ibmcloud whcs acd analyze-with-flow --flow-id FLOW_ID --return-analyzed-text RET
 
 <dl> 
 <dt>--flow-id (string)</dt>
-<dd>flow identifier . Required.</dd>
+<dd>Flow ID. Required.</dd>
 <dt>--return-analyzed-text (boolean)</dt>
-<dd>Set this to true to show the analyzed text in the response. Required.</dd>
-<dd>The default value is `false`.</dd>
+<dd>Set this to true to show the analyzed text in the response. Required. The default value is `false`.</dd>
 <dt>--body (string)</dt>
-<dd>Input request data in TEXT or JSON format .</dd>
+<dd>Input request data in TEXT or JSON format.</dd>
 <dt>--content-type (string)</dt>
-<dd>The type of the input. A character encoding can be specified by including a `charset` parameter. For example, 'text/plain;charset=utf-8'.</dd>
-<dd>Allowable values are: application/json, text/plain</dd>
+<dd>Allowable values are: `application/json` or `text/plain`</dd>
 <dt>--debug-text-restore (boolean)</dt>
-<dd>If true, any ReplaceTextChange annotations will be left in the container and the modified text before restoring to original form will be returned in the metadata.  Otherwise, these annotations and modified text will be removed from the container.</dd>
+<dd>If true, any ReplaceTextChange annotations will be left in the container and the modified text, before restoring to original form, will be returned in the metadata.  Otherwise, these annotations and modified text will be removed from the container.</dd>
 <dd>The default value is `false`.</dd>
 </dl>
 
@@ -1238,10 +1238,10 @@ ibmcloud whcs acd analyze-with-flow --body "Patient has lung cancer but did not 
 ```
 {: screen}
 
-### ibmcloud whcs acd annotators (Get list of available annotators)
+### ibmcloud whcs acd annotators
 {: #whcs-cli-annotators-command}
 
-Get list of available annotators that can be leveraged to detect information from unstructured data. One or more annnotators can be leveraged within a single request to the service.
+Get a list of available annotators that can be leveraged to detect entities and relations from unstructured data. One or more annotators can be leveraged within a single request to the service.
 
 ```sh
 ibmcloud whcs acd annotators
@@ -1364,10 +1364,10 @@ ibmcloud whcs acd annotators --output json
 ```
 {: screen}
 
-### ibmcloud whcs acd annotator (Get details of a specific annotator)
+### ibmcloud whcs acd annotator
 {: #whcs-cli-annotator-command}
 
-Get details of an annotator that can be used to detect information from unstructured data.
+Get details of an annotator that can be used to detect entities and relations from unstructured data.
 
 ```sh
 ibmcloud whcs acd annotator --id ID
@@ -1378,7 +1378,7 @@ ibmcloud whcs acd annotator --id ID
 
 <dl> 
 <dt>--id (string)</dt>
-<dd>The ID the Service API was registered under. Required.</dd>
+<dd>Annotator ID. Required.</dd>
 </dl>
 
 #### Examples
@@ -1400,10 +1400,10 @@ ibmcloud whcs acd annotator --id procedure --output json
 ```
 {: screen}
 
-### ibmcloud whcs acd user-specific-artifacts-delete (Delete tenant specific artifacts)
+### ibmcloud whcs acd user-specific-artifacts-delete
 {: #whcs-cli-user-specific-artifacts-delete-command}
 
-Delete tenant specific artifacts.
+Delete tenant-specific artifacts.
 
 ```sh
 ibmcloud whcs acd user-specific-artifacts-delete
@@ -1419,12 +1419,12 @@ ibmcloud whcs acd user-specific-artifacts-delete --output json
 
 ## Cartridges
 {: #whcs-cartridges-cli}
-Customize annotators using a knowledge cartridge
+A cartridge contains annotator customization details.  It can be deployed to your Annotator for Clinical Data service instance and then leveraged when analyzing your unstructured data.
 
-### ibmcloud whcs acd cartridges (Get list of available deployment status)
+### ibmcloud whcs acd cartridges
 {: #whcs-cli-cartridges-command}
 
-Returns a summary including ID and status of the available deployments.
+Returns a summary including ID and status of the available cartridge deployments.
 
 ```sh
 ibmcloud whcs acd cartridges
@@ -1471,7 +1471,7 @@ ibmcloud whcs acd cartridges --output json
 ```
 {: screen}
 
-### ibmcloud whcs acd cartridge-create (Create a cartridge deployment)
+### ibmcloud whcs acd cartridge-create
 {: #whcs-cli-cartridge-create-command}
 
 Create a cartridge deployment from a cartridge archive file.
@@ -1486,7 +1486,7 @@ ibmcloud whcs acd cartridge-create [--archive-file ARCHIVE_FILE]
 
 <dl> 
 <dt>--archive-file (binary)</dt>
-<dd>Cartridge archive file.</dd>
+<dd>The cartridge archive file.</dd>
 </dl>
 
 #### Examples
@@ -1519,10 +1519,10 @@ ibmcloud whcs acd cartridge-create --archive-file demo_cartridge_v1.0.zip --outp
 ```
 {: screen}
 
-### ibmcloud whcs acd cartridge-update (Update a cartridge deployment)
+### ibmcloud whcs acd cartridge-update
 {: #whcs-cli-cartridge-update-command}
 
-Update a cartridge deployment from a cartridge archive file.
+Update a previous cartridge deployment from a cartridge archive file.
 
 ```sh
 ibmcloud whcs acd cartridge-update [--archive-file ARCHIVE_FILE]
@@ -1534,7 +1534,7 @@ ibmcloud whcs acd cartridge-update [--archive-file ARCHIVE_FILE]
 
 <dl> 
 <dt>--archive-file (binary)</dt>
-<dd>Cartridge archive file.</dd>
+<dd>The cartridge archive file.</dd>
 </dl>
 
 #### Examples
@@ -1567,10 +1567,10 @@ ibmcloud whcs acd cartridge-update --archive-file demo_cartridge_v1.0.zip --outp
 ```
 {: screen}
 
-### ibmcloud whcs acd cartridge (Get details of a specific deployment)
+### ibmcloud whcs acd cartridge
 {: #whcs-cli-cartridge-command}
 
-Using the specified Catridge ID, retrieves the deployment status.
+Get details of a specific cartridge deployment.  Using the specified cartridge ID, retrieve the deployment status.
 
 ```sh
 ibmcloud whcs acd cartridge --id ID
@@ -1582,7 +1582,7 @@ ibmcloud whcs acd cartridge --id ID
 
 <dl> 
 <dt>--id (string)</dt>
-<dd>Cartridge ID. Required.</dd>
+<dd>The cartridge ID. Required.</dd>
 </dl>
 
 #### Examples
@@ -1711,7 +1711,7 @@ ibmcloud whcs acd cartridge --id wh_acd.ibm_clinical_insights_v1.0 --output json
 ```
 {: screen}
 
-### ibmcloud whcs acd cartridge-deploy (Deploy a cartridge)
+### ibmcloud whcs acd cartridge-deploy
 {: #whcs-cli-cartridge-deploy-command}
 
 Deploy a cartridge from a cartridge archive file.
@@ -1726,9 +1726,9 @@ ibmcloud whcs acd cartridge-deploy [--archive-file ARCHIVE_FILE] [--update UPDAT
 
 <dl> 
 <dt>--archive-file (binary)</dt>
-<dd>Cartridge archive file.</dd>
+<dd>The cartridge archive file.</dd>
 <dt>--update (boolean)</dt>
-<dd>Update resources if they already exist.</dd>
+<dd>Update a previous cartridge deployment if it already exists.</dd>
 <dd>The default value is `false`.</dd>
 </dl>
 
@@ -1791,12 +1791,12 @@ ibmcloud whcs acd cartridge-deploy --archive-file demo_cartridge_v1.0.zip --upda
 
 ## Status
 {: #whcs-status-cli}
-Get the health check status of this service
+Get the health check status of this Annotator for Clinical Data service instance.
 
-### ibmcloud whcs acd status (Determine if service is running correctly)
+### ibmcloud whcs acd status
 {: #whcs-cli-status-command}
 
-This is a health check status of the service.  It will will return a 500 error if the service state is not OK.
+Determine if service is running correctly.  This is a health check status of the service.  It will return a 500 error if the service state is not OK.
 
 ```sh
 ibmcloud whcs acd status
