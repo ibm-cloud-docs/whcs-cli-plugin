@@ -96,20 +96,20 @@ ibmcloud whcs acd profile-create [--id ID] [--name NAME] [--description DESCRIPT
 
 <dl> 
 <dt>--id (string)</dt>
-<dd></dd>
+<dd>Profile ID.</dd>
 <dt>--name (string)</dt>
-<dd></dd>
+<dd>Profile name.</dd>
 <dt>--description (string)</dt>
-<dd></dd>
+<dd>Profile description.</dd>
 <dt>--published-date (string)</dt>
-<dd></dd>
+<dd>Profile publish date.</dd>
 <dt>--publish (boolean)</dt>
-<dd></dd>
+<dd>Profile is published.</dd>
 <dd>The default value is `false`.</dd>
 <dt>--create-profile-version (string)</dt>
-<dd></dd>
+<dd>Profile version.</dd>
 <dt>--cartridge-id (string)</dt>
-<dd></dd>
+<dd>Profile cartridge ID.</dd>
 <dt>--annotators (string)</dt>
 <dd>A string containing a JSON array of your annotator configuration.</dd>
 </dl>
@@ -388,18 +388,18 @@ ibmcloud whcs acd profile-update --id ID [--name NEW_NAME] [--description NEW_DE
 <dt>--id (string)</dt>
 <dd>Profile ID. Required.</dd>
 <dt>--name (string)</dt>
-<dd></dd>
+<dd>Profile name.</dd>
 <dt>--description (string)</dt>
-<dd></dd>
+<dd>Profile description.</dd>
 <dt>--published-date (string)</dt>
-<dd></dd>
+<dd>Profile publish date.</dd>
 <dt>--publish (boolean)</dt>
-<dd></dd>
+<dd>Profile is published.</dd>
 <dd>The default value is `false`.</dd>
 <dt>--version (string)</dt>
-<dd></dd>
+<dd>Profile version.</dd>
 <dt>--cartridge-id (string)</dt>
-<dd></dd>
+<dd>Profile cartridge ID.</dd>
 <dt>--annotators (string)</dt>
 <dd>A string containing a JSON array of your annotator configuration.</dd>
 </dl>
@@ -513,20 +513,20 @@ ibmcloud whcs acd flow-create [--id ID] [--name NAME] [--description DESCRIPTION
 
 <dl> 
 <dt>--id (string)</dt>
-<dd></dd>
+<dd>Flow ID.</dd>
 <dt>--name (string)</dt>
-<dd></dd>
+<dd>Flow name.</dd>
 <dt>--description (string)</dt>
-<dd></dd>
+<dd>Flow description.</dd>
 <dt>--published-date (string)</dt>
-<dd></dd>
+<dd>Flow publish date.</dd>
 <dt>--publish (boolean)</dt>
-<dd></dd>
+<dd>Flow is published.</dd>
 <dd>The default value is `false`.</dd>
 <dt>--create-flow-version (string)</dt>
-<dd></dd>
+<dd>Flow version.</dd>
 <dt>--cartridge-id (string)</dt>
-<dd></dd>
+<dd>Flow cartridge ID.</dd>
 <dt>--annotator-flows (string)</dt>
 <dd>A string containing a JSON array of your annotator flow definition.</dd>
 </dl>
@@ -735,18 +735,18 @@ ibmcloud whcs acd flow-update --id ID [--name NEW_NAME] [--description NEW_DESCR
 <dt>--id (string)</dt>
 <dd>Flow ID. Required.</dd>
 <dt>--name (string)</dt>
-<dd></dd>
+<dd>Flow name.</dd>
 <dt>--description (string)</dt>
-<dd></dd>
+<dd>Flow description.</dd>
 <dt>--published-date (string)</dt>
-<dd></dd>
+<dd>Flow publish date.</dd>
 <dt>--publish (boolean)</dt>
-<dd></dd>
+<dd>Flow is published.</dd>
 <dd>The default value is `false`.</dd>
 <dt>--version (string)</dt>
-<dd></dd>
+<dd>Flow version.</dd>
 <dt>--cartridge-id (string)</dt>
-<dd></dd>
+<dd>Flow cartridge ID.</dd>
 <dt>--annotator-flows (string)</dt>
 <dd>A string containing a JSON array of your annotator flow definition.</dd>
 </dl>
@@ -1048,11 +1048,13 @@ ibmcloud whcs acd analyze-with-flow --flow-id FLOW_ID --return-analyzed-text RET
 <dt>--flow-id (string)</dt>
 <dd>Flow ID. Required.</dd>
 <dt>--return-analyzed-text (boolean)</dt>
-<dd>Set this to true to show the analyzed text in the response. Required. The default value is `false`.</dd>
+<dd>Set this to true to show the analyzed text in the response. Required.</dd>
+<dd>The default value is `false`.</dd>
 <dt>--body (string)</dt>
 <dd>Input request data in TEXT or JSON format.</dd>
 <dt>--content-type (string)</dt>
-<dd>Reflects the type of data provided in the `body` command option. Allowable values are: `application/json` or `text/plain`.</dd>
+<dd>Reflects the type of data provided in the `body` command option.</dd>
+<dd>Allowable values: `application/json` or `text/plain`.</dd>
 <dt>--debug-text-restore (boolean)</dt>
 <dd>If true, any ReplaceTextChange annotations will be left in the container and the modified text, before restoring to original form, will be returned in the metadata.  Otherwise, these annotations and modified text will be removed from the container.</dd>
 <dd>The default value is `false`.</dd>
