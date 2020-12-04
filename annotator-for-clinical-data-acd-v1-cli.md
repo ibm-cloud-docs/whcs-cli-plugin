@@ -2,7 +2,7 @@
 
 copyright:
   years: 2020
-lastupdated: "2020-11-30"
+lastupdated: "2020-12-04"
 
 subcollection: whcs-cli-plugin
 keywords: whcs annotator for clinical data CLI, whcs acd CLI, whcs annotator for clinical data command line, whcs acd command line, whcs annotator for clinical data terminal, whcs acd terminal, whcs annotator for clinical data shell, whcs acd shell
@@ -1242,7 +1242,7 @@ ibmcloud whcs acd analyze-with-flow --body "Patient has lung cancer but did not 
 ### ibmcloud whcs acd annotators
 {: #whcs-cli-annotators-command}
 
-Get a list of available ACD annotators that can be leveraged to detect entities and relations from unstructured data. One or more ACD annotators can be leveraged within a single request to the service.
+Get a list of available ACD annotators that can be leveraged to detect entities and relations from unstructured data. One or more ACD annotators can be leveraged within a single request to the service using `POST /v1/analyze` or `POST /v1/analyze/{flowID}` API.
 
 ```sh
 ibmcloud whcs acd annotators
@@ -1450,7 +1450,7 @@ ibmcloud whcs acd cartridges --output json
       "correlationId": "7039942c-49f0-4191-bba2-b7bbb8a9e337",
       "duration": "10",
       "endTime": "2020-11-11T19:29:10.920Z",
-      "id": "",
+      "id": "wh_acd.ibm_clinical_insights_v1.0",
       "name": "IBM Clinical Insights",
       "startTime": "2020-11-11T19:29:00.806Z",
       "status": "completed",
